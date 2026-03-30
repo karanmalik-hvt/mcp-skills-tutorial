@@ -1,0 +1,86 @@
+name: GitHub Classroom Autograding
+
+on:
+  push:
+    branches: ["*"]
+    paths:
+      - "notebooks/**"
+  workflow_dispatch:
+
+permissions:
+  checks: write
+  actions: read
+  contents: read
+
+jobs:
+  grade:
+    name: Grade Notebooks
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout student repo
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Grade MCP Notebook (50 points)
+        id: grade_mcp
+        continue-on-error: true
+        run: |
+          python skills/notebook-grader/scripts/grade_notebook.py \
+            notebooks/01_MCP_Practice.ipynb --threshold 80 2>&1 | tee /dev/stderr
+          echo "exit_code=$?" >> $GITHUB_OUTPUT
+
+      - name: Grade Skills Notebook (50 points)
+        id: grade_skills
+        continue-on-error: true
+        run: |
+          python skills/notebook-grader/scripts/grade_notebook.py \
+            notebooks/02_Skills_Practice.ipynb --threshold 80 2>&1 | tee /dev/stderr
+          echo "exit_code=$?" >> $GITHUB_OUTPUT
+
+      - name: Generate grading summary
+        if: always()
+        run: |
+          echo "## Grading Results" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+
+          if [ "${{ steps.grade_mcp.outcome }}" == "success" ]; then
+            echo "| MCP Notebook | **PASS** | 50/50 |" >> $GITHUB_STEP_SUMMARY
+          else
+            echo "| MCP Notebook | **FAIL** | 0/50 |" >> $GITHUB_STEP_SUMMARY
+          fi
+
+          if [ "${{ steps.grade_skills.outcome }}" == "success" ]; then
+            echo "| Skills Notebook | **PASS** | 50/50 |" >> $GITHUB_STEP_SUMMARY
+          else
+            echo "| Skills Notebook | **FAIL** | 0/50 |" >> $GITHUB_STEP_SUMMARY
+          fi
+
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "Threshold: 80% exercise completion required per notebook." >> $GITHUB_STEP_SUMMARY
+
+      - name: Autograding Reporter
+        uses: education/autograding-grading-reporter@v1
+        if: always()
+        env:
+          GRADE_MCP_RESULTS: "${{ steps.grade_mcp.outcome }}"
+          GRADE_SKILLS_RESULTS: "${{ steps.grade_skills.outcome }}"
+        with:
+          runners: grade_mcp,grade_skills
+
+      - name: Check overall result
+        if: always()
+        run: |
+          if [ "${{ steps.grade_mcp.outcome }}" == "failure" ] || [ "${{ steps.grade_skills.outcome }}" == "failure" ]; then
+            echo "One or more notebooks below 80% threshold."
+            exit 1
+          fi
+          echo "All notebooks passed!"

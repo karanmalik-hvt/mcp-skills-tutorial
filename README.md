@@ -223,6 +223,55 @@ To add support for a new agent, create its config file and have it reference `AG
 2. Use `os.environ.get("KEY_NAME")` and put the value in `.env`
 3. If it's a false positive: `git commit --no-verify` (use sparingly)
 
+## GitHub Classroom Setup (Instructors)
+
+This repo is designed for GitHub Classroom. Here's how to set it up:
+
+### 1. Create a Classroom assignment
+
+1. Go to [classroom.github.com](https://classroom.github.com)
+2. Create a new assignment using this repo as the **template repository**
+3. Under **Grading and feedback**, enable **Autograding**
+4. The autograding config is already included in `.github/classroom/autograding.json`
+
+### 2. How autograding works
+
+When a student pushes changes to any file in `notebooks/`, the GitHub Actions workflow runs automatically:
+
+| Test | What it checks | Points | Pass threshold |
+|------|---------------|--------|---------------|
+| MCP Notebook | Exercise completion in `01_MCP_Practice.ipynb` | 50 | 80% exercises marked DONE |
+| Skills Notebook | Exercise completion in `02_Skills_Practice.ipynb` | 50 | 80% exercises marked DONE |
+
+**Total: 100 points.** Students must complete at least 80% of exercises in each notebook.
+
+The grading script checks for:
+- `# TODO` markers still present (not completed)
+- `NotImplementedError` still raised (not implemented)
+- `= "___"` placeholders still unfilled (not answered)
+
+### 3. Grading manually
+
+```bash
+# Grade a single notebook
+python skills/notebook-grader/scripts/grade_notebook.py notebooks/01_MCP_Practice.ipynb --threshold 80
+
+# Grade without threshold (just report)
+python skills/notebook-grader/scripts/grade_notebook.py notebooks/01_MCP_Practice.ipynb
+```
+
+### 4. Changing the threshold
+
+Edit the `--threshold` value in:
+- `.github/workflows/autograding.yml` — the Actions workflow
+- `.github/classroom/autograding.json` — the Classroom test config
+
+### 5. What students see
+
+- A green check or red X on their repo after each push
+- Detailed grading report in the Actions tab (which exercises are DONE/TODO/PARTIAL)
+- Grade summary in the GitHub Classroom dashboard
+
 ## Troubleshooting
 
 | Problem | Solution |
@@ -233,6 +282,7 @@ To add support for a new agent, create its config file and have it reference `AG
 | OpenAI exercises fail | Add your key to `.env` file (see step 4 above), or skip (it's optional) |
 | Pre-commit hook not running | Run `python scripts/setup_hooks.py` to reinstall |
 | Commit blocked by secrets scan | Remove the secret and use `.env` instead (see Security section) |
+| Autograding shows FAIL | Check Actions tab for which exercises are incomplete |
 
 ## License
 

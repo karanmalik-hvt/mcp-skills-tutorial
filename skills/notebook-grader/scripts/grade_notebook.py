@@ -8,12 +8,18 @@ Checks each exercise cell for completion status by looking for:
 
 Usage:
     python grade_notebook.py <notebook_path>
-    python grade_notebook.py notebooks/01_MCP_Practice.ipynb
+    python grade_notebook.py <notebook_path> --threshold 80
+    python grade_notebook.py notebooks/01_MCP_Practice.ipynb --threshold 80
+
+Exit codes:
+    0 — pass (completion_rate >= threshold, or no threshold set)
+    1 — fail (completion_rate < threshold, or file not found)
 
 Output:
-    JSON report to stdout with per-exercise status.
+    Human-readable report to stderr, JSON report to stdout.
 """
 
+import argparse
 import json
 import re
 import sys
@@ -45,7 +51,6 @@ def extract_exercises(notebook_path: str) -> list[dict]:
         # Determine completion status
         has_todo = "# TODO" in source
         has_not_implemented = "NotImplementedError" in source
-        has_placeholder = source.strip().endswith("pass") or "= None  # Replace" in source
         has_blank_answer = '= "___"' in source
 
         # Count non-skeleton lines (not comments, not blank, not imports)
@@ -107,11 +112,15 @@ def grade_notebook(notebook_path: str) -> dict:
 
 
 def main():
-    if len(sys.argv) != 2:
-        print("Usage: python grade_notebook.py <notebook_path>", file=sys.stderr)
-        sys.exit(1)
+    parser = argparse.ArgumentParser(description="Grade a student notebook submission.")
+    parser.add_argument("notebook", help="Path to the .ipynb notebook file")
+    parser.add_argument(
+        "--threshold", type=float, default=0,
+        help="Minimum completion %% to pass (0-100). Exit code 1 if below. Default: 0 (always pass)"
+    )
+    args = parser.parse_args()
 
-    report = grade_notebook(sys.argv[1])
+    report = grade_notebook(args.notebook)
 
     if "error" in report:
         print(f"ERROR: {report['error']}", file=sys.stderr)
@@ -123,11 +132,24 @@ def main():
     for ex in report["exercises"]:
         icon = {"DONE": "[x]", "PARTIAL": "[~]", "TODO": "[ ]"}[ex["status"]]
         print(f"  {icon} Exercise {ex['exercise_id']}: {ex['title']} — {ex['status']}", file=sys.stderr)
-    print(f"\nCompleted: {report['completed']}/{report['total_exercises']} "
-          f"({report['completion_rate']}%)", file=sys.stderr)
+
+    rate = report["completion_rate"]
+    threshold = args.threshold
+    print(f"\nCompleted: {report['completed']}/{report['total_exercises']} ({rate}%)", file=sys.stderr)
+
+    if threshold > 0:
+        passed = rate >= threshold
+        status = "PASS" if passed else "FAIL"
+        print(f"Threshold: {threshold}%  — {status}", file=sys.stderr)
+    else:
+        passed = True
 
     # Print JSON to stdout (for programmatic use)
+    report["threshold"] = threshold
+    report["passed"] = passed
     print(json.dumps(report, indent=2))
+
+    sys.exit(0 if passed else 1)
 
 
 if __name__ == "__main__":

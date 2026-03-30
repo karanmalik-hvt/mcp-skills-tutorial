@@ -1,0 +1,24 @@
+{
+  "tests": [
+    {
+      "name": "MCP Notebook (80% completion required)",
+      "setup": "pip install -r requirements.txt",
+      "run": "python skills/notebook-grader/scripts/grade_notebook.py notebooks/01_MCP_Practice.ipynb --threshold 80",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 60,
+      "points": 50
+    },
+    {
+      "name": "Skills Notebook (80% completion required)",
+      "setup": "",
+      "run": "python skills/notebook-grader/scripts/grade_notebook.py notebooks/02_Skills_Practice.ipynb --threshold 80",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 60,
+      "points": 50
+    }
+  ]
+}
