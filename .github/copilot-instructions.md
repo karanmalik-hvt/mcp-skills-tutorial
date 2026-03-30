@@ -28,6 +28,18 @@ GitHub Classroom tutorial repo — MCP (Model Context Protocol) and AI Agent Ski
 - Do not modify `docs/` or `notebooks/test_data/sample_project/`.
 - Do not add dependencies beyond `requirements.txt` without asking.
 
+## Bundled Skills
+
+This repo includes working Skills in the `skills/` directory. When a task matches
+a skill's description, read the SKILL.md file and follow its instructions:
+
+- [`skills/skill-md-linter/SKILL.md`](../skills/skill-md-linter/SKILL.md) — Use when validating or reviewing SKILL.md files. Read this file for the full validation checklist and output format.
+- [`skills/notebook-grader/SKILL.md`](../skills/notebook-grader/SKILL.md) — Use when grading or checking student notebook submissions. Read this file for the grading workflow and report template. Script: `skills/notebook-grader/scripts/grade_notebook.py`
+- [`skills/fastmcp-scaffolder/SKILL.md`](../skills/fastmcp-scaffolder/SKILL.md) — Use when creating new MCP servers. Read this file for the scaffolding rules and gotchas. Template: `skills/fastmcp-scaffolder/assets/server-template.py`
+
+When a task matches a skill, read the relevant SKILL.md BEFORE starting work.
+Follow its workflow, use its output templates, and respect its gotchas.
+
 ## Reference
 
 Read [AGENTS.md](../AGENTS.md) for the complete, detailed project rules.

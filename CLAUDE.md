@@ -15,7 +15,16 @@
 GitHub Classroom tutorial repo — MCP and AI Agent Skills.
 See [AGENTS.md](AGENTS.md) for full project context, structure, and code guidelines.
 
+## Bundled Skills
+
+Skills are in the `skills/` directory (linked to `.claude/skills/` for auto-discovery).
+Claude Code should auto-discover them. If not, read the SKILL.md files directly:
+
+- `skills/skill-md-linter/SKILL.md` — Validates SKILL.md files against the spec
+- `skills/notebook-grader/SKILL.md` — Grades student notebook submissions
+- `skills/fastmcp-scaffolder/SKILL.md` — Generates correct FastMCP server boilerplate
+
 ## Claude Code Specific
 
+- Run `python scripts/setup_hooks.py` to link `skills/` to `.claude/skills/` for auto-discovery.
 - Do not add or modify `CLAUDE.md` unless asked.
-- Read `AGENTS.md` for the complete list of rules before making any changes to this repo.

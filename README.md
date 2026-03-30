@@ -93,7 +93,7 @@ mcp-skills-tutorial/
 ├── .antigravity/
 │   └── instructions.md                   # Antigravity project config
 │
-├── .claude/skills/                       # Bundled Skills (dogfooding examples)
+├── skills/                               # Bundled Skills (agent-agnostic, all agents read these)
 │   ├── skill-md-linter/SKILL.md          # Automation: validates SKILL.md files
 │   ├── notebook-grader/                  # Automation: grades student notebooks
 │   │   ├── SKILL.md
@@ -159,7 +159,7 @@ mcp-skills-tutorial/
 
 ## Included Skills (Dogfooding)
 
-This repo includes 3 working Skills in `.claude/skills/` — real examples of what students learn to build. Each demonstrates a different skill type from the tutorial.
+This repo includes 3 working Skills in `skills/` — real examples of what students learn to build. Each demonstrates a different skill type from the tutorial. Skills are in an **agent-agnostic** location and all agent configs (Claude, Cursor, Copilot, Windsurf, Antigravity) reference them.
 
 | Skill | Type | Who it helps | What it does |
 |-------|------|-------------|-------------|
@@ -172,7 +172,7 @@ These skills work with any compatible AI agent (Claude Code, Cursor, Copilot, et
 ### Using the grading script directly
 
 ```bash
-python .claude/skills/notebook-grader/scripts/grade_notebook.py notebooks/01_MCP_Practice.ipynb
+python skills/notebook-grader/scripts/grade_notebook.py notebooks/01_MCP_Practice.ipynb
 ```
 
 ## Reference Materials

@@ -21,7 +21,7 @@ This is a **GitHub Classroom** tutorial repo for learning MCP (Model Context Pro
 - `docs/` — Reference PDFs (read-only, do not modify)
 - `notebooks/test_data/` — Sample files used by exercises (do not modify)
 - `scripts/` — Git hook setup and secrets scanner
-- `.claude/skills/` — Bundled Skills (working examples of what students learn to build):
+- `skills/` — Bundled Skills (working examples of what students learn to build):
   - `skill-md-linter` — Automation Skill: validates SKILL.md files against the spec
   - `notebook-grader` — Automation Skill: grades student notebook submissions
   - `fastmcp-scaffolder` — Creation Skill: generates correct FastMCP server boilerplate
@@ -45,3 +45,21 @@ This is a **GitHub Classroom** tutorial repo for learning MCP (Model Context Pro
 - Do not reveal full solutions unless the student explicitly asks for the answer
 - Do not add dependencies beyond what's in `requirements.txt` without asking
 - Do not suggest `git commit --no-verify` to bypass the secrets hook
+
+## Bundled Skills
+
+This repo includes 3 working Skills in the `skills/` directory. These are real, functional
+skills that are also reference examples of what students learn to build.
+
+**How to use them:** When a user's task matches a skill's description, read the SKILL.md
+file and follow its instructions, workflow, output template, and gotchas.
+
+| Skill | When to activate | SKILL.md location |
+|-------|-----------------|-------------------|
+| **skill-md-linter** | Validating/reviewing SKILL.md files | `skills/skill-md-linter/SKILL.md` |
+| **notebook-grader** | Grading/checking student notebooks | `skills/notebook-grader/SKILL.md` |
+| **fastmcp-scaffolder** | Creating new FastMCP servers | `skills/fastmcp-scaffolder/SKILL.md` |
+
+Supporting files:
+- `skills/notebook-grader/scripts/grade_notebook.py` — Runnable grading script
+- `skills/fastmcp-scaffolder/assets/server-template.py` — FastMCP boilerplate template
