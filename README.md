@@ -209,4 +209,5 @@ To add support for a new agent, create its config file and have it reference `AG
 
 ## License
 
-Internal learning material — Hexaview Technologies.
+Proprietary — Hexaview Technologies Private Limited. See [LICENSE](LICENSE) for terms.
+Students may use this repo for coursework only. Redistribution is not permitted.
