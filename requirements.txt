@@ -1,0 +1,9 @@
+# Core dependencies
+mcp>=1.0.0
+pyyaml>=6.0
+jupyter>=1.0.0
+notebook>=7.0.0
+
+# Optional - only needed for Bonus Exercise 8 in MCP notebook
+# Uncomment if you have an OpenAI API key
+# openai>=1.0.0

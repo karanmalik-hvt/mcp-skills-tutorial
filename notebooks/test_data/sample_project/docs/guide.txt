@@ -1,0 +1,8 @@
+Getting Started Guide
+=====================
+
+1. Install dependencies
+2. Run the main module
+3. Check the output
+
+This is a plain text file for testing the read_file tool.

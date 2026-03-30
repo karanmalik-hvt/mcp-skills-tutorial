@@ -1,0 +1,33 @@
+# Windsurf (Codeium) — Project Instructions
+#
+# Full shared rules are in AGENTS.md. Read that file first.
+
+## Security Rules
+
+- NEVER read, open, display, or output the contents of `.env` files. They contain student API keys.
+- NEVER include API keys, tokens, or secrets in code suggestions. Use `os.environ.get()` instead.
+- NEVER commit `.env` files or suggest disabling the pre-commit hook.
+- When students ask about API keys, point them to `.env.example` and README.
+- If you see a hardcoded secret, flag it immediately.
+
+## Project Context
+
+GitHub Classroom tutorial repo — MCP (Model Context Protocol) and AI Agent Skills.
+
+- `notebooks/01_MCP_Practice.ipynb` — MCP exercises (Python, FastMCP)
+- `notebooks/02_Skills_Practice.ipynb` — Skills exercises (SKILL.md authoring)
+- `docs/` — Reference PDFs (read-only)
+- `notebooks/test_data/` — Exercise test fixtures (do not modify)
+
+## Code Guidelines
+
+- All exercises are Python only. Use FastMCP for MCP servers.
+- API keys must load from environment variables or `.env`, never hardcoded.
+- This is a teaching repo — prefer clarity over cleverness.
+- Do not reveal full solutions unless the student explicitly asks.
+- Do not modify `docs/` or `notebooks/test_data/sample_project/`.
+- Do not add dependencies beyond `requirements.txt` without asking.
+
+## Reference
+
+Read `AGENTS.md` for the complete, detailed project rules.
