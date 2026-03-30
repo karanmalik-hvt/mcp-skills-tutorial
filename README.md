@@ -93,6 +93,15 @@ mcp-skills-tutorial/
 ├── .antigravity/
 │   └── instructions.md                   # Antigravity project config
 │
+├── .claude/skills/                       # Bundled Skills (dogfooding examples)
+│   ├── skill-md-linter/SKILL.md          # Automation: validates SKILL.md files
+│   ├── notebook-grader/                  # Automation: grades student notebooks
+│   │   ├── SKILL.md
+│   │   └── scripts/grade_notebook.py
+│   └── fastmcp-scaffolder/              # Creation: generates MCP server boilerplate
+│       ├── SKILL.md
+│       └── assets/server-template.py
+│
 ├── scripts/
 │   ├── setup_hooks.py                    # Installs git pre-commit hook
 │   └── pre-commit-secrets-scan.sh        # Scans for leaked API keys
@@ -147,6 +156,24 @@ mcp-skills-tutorial/
 | 6 | Automation Skill | Hard | Plan-Validate-Execute, validation scripts |
 | 7 | Progressive Disclosure | Medium | Refactoring, token budget management |
 | 8 | MCP + Skills Capstone | Hard | MCP Enhancement Skill design |
+
+## Included Skills (Dogfooding)
+
+This repo includes 3 working Skills in `.claude/skills/` — real examples of what students learn to build. Each demonstrates a different skill type from the tutorial.
+
+| Skill | Type | Who it helps | What it does |
+|-------|------|-------------|-------------|
+| **skill-md-linter** | Automation | Students | Validates SKILL.md files against the spec (frontmatter, body structure, description quality) |
+| **notebook-grader** | Automation | Instructors | Checks student notebook submissions for exercise completion and generates grading reports |
+| **fastmcp-scaffolder** | Creation | Students | Generates correct FastMCP server boilerplate with type hints, docstrings, safe_path(), and logging |
+
+These skills work with any compatible AI agent (Claude Code, Cursor, Copilot, etc.) and serve as reference examples students can study while completing Skills Notebook exercises.
+
+### Using the grading script directly
+
+```bash
+python .claude/skills/notebook-grader/scripts/grade_notebook.py notebooks/01_MCP_Practice.ipynb
+```
 
 ## Reference Materials
 

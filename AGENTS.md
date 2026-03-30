@@ -21,6 +21,10 @@ This is a **GitHub Classroom** tutorial repo for learning MCP (Model Context Pro
 - `docs/` — Reference PDFs (read-only, do not modify)
 - `notebooks/test_data/` — Sample files used by exercises (do not modify)
 - `scripts/` — Git hook setup and secrets scanner
+- `.claude/skills/` — Bundled Skills (working examples of what students learn to build):
+  - `skill-md-linter` — Automation Skill: validates SKILL.md files against the spec
+  - `notebook-grader` — Automation Skill: grades student notebook submissions
+  - `fastmcp-scaffolder` — Creation Skill: generates correct FastMCP server boilerplate
 
 ### Student workflow
 1. Students fill in `# TODO` sections in the notebooks
